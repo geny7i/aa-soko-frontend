@@ -1,0 +1,11 @@
+on:
+  repository_dispatch:
+    types: 
+      - build-and-publish
+
+jobs:
+  build:
+    name: hoge
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
