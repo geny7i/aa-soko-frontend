@@ -21,11 +21,9 @@ jobs:
       - name: build
         run: npm run production
         working-directory: ./client
-      - run: ls
-      - run: ls ./client
-      - run: ls ./client/dist
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./client/dist
+          cname: aasoko.net
