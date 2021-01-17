@@ -1,0 +1,28 @@
+on:
+  workflow_dispatch:
+    branches: [master]
+  repository_dispatch:
+    types: 
+      - deploy-to-ghp
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: check out aa-soko
+        uses: actions/checkout@master
+        with:
+          repository: geny7i/aa-soko
+          token: ${{ secrets.PERSONAL_TOKEN }}
+      - name: use node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.15.1
+      - name: build
+        run: npm run production
+        working-directory: ./client
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
